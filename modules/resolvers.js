@@ -39,6 +39,17 @@ const resolvers = {
       }
     },
   },
+  Mutation: {
+    uploadMarkdownFile: async (_, { file }) => {
+      const { filename, content } = file;
+      const filePath = path.join(MARKDOWN_DIR, filename);
+
+      // Save the file to the markdown directory
+      await fs.promises.writeFile(filePath, content);
+
+      return { filename, mimetype: 'text/markdown', encoding: 'utf-8' };
+    },
+  },
 };
 
 module.exports = resolvers;
